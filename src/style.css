@@ -1,3 +1,114 @@
-h1 {
-  color: red;
+h2 {
+  font-size: 18px;
+}
+
+.weather-app {
+  text-align: center;
+  background: #fff;
+  margin: 0 auto;
+  padding: 20px;
+  width: 450px;
+  height: 550px;
+  border: solid;
+}
+
+#search-bar {
+  width: 200px;
+  margin: 10px 0 20px 30px;
+}
+
+#submit-button {
+  margin: 10px 0 20px 0;
+}
+
+#current-location-button {
+  width: 80px;
+  position: relative;
+  top: 10px;
+  right: 35px;
+}
+
+.city {
+  text-transform: uppercase;
+  /*note: 'capitalize' makes the first letter upper case, i.e. sentence case */
+  /*font-family: "Josefin Sans", sans-serif; */ /*this font puts it at the top of the box rather than the middle*/
+  font-size: 30px;
+  line-height: 30px;
+  margin: 0 0 2px 0; /* for some reaon there's more bottom padding than top, but if you remove bottom padding it's too high*/
+}
+/*note: for the city, the width is specified in the HTML div element */
+/*make the search bar above match by changing width*/
+
+.body {
+  font-family: "Work Sans", sans-serif;
+}
+/* could use rows and columns/inline elements to make sure all on same row even when resize window */
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+#today-time {
+  margin: 25px 20px 0px 40px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.today {
+  padding: 20px;
+}
+
+#description {
+  /* resize column sizes if need to */
+  text-transform: lowercase;
+  font-size: 28px;
+  text-align: right;
+}
+
+#emoji {
+  font-size: 30px;
+  text-align: center;
+}
+
+#temp-today,
+#degrees {
+  font-size: 28px;
+}
+
+.future-days {
+  padding: 10px;
+  position: relative;
+  top: -10px;
+  left: 27px;
+}
+
+.forecast-date {
+  text-align: right;
+}
+
+.forecast-emoji {
+  text-align: center;
+}
+
+.forecast-temp {
+  text-align: right;
+}
+
+#credit {
+  font-family: monospace;
+  font-size: 14px;
+  opacity: 0.8;
+  margin: 0 auto;
+  padding: 0;
+}
+
+#github:hover {
+  opacity: 1;
+  color: rgb(253, 103, 160);
+  transition: all 200ms ease-in-out;
 }
