@@ -71,21 +71,26 @@
         console.log(response.data.main.temp); //this gives us the temperature 
         console.log(response.data.weather[0].main); //this gives us the description of the weather (e.g. sunny, clouds) 
 
-        //now we want to change the name of the city within the h1 heading (id="city-name") - can call it 'cityName': 
-        let cityName = document.querySelector("#city-name"); 
-        cityName.innerHTML = response.data.name;  
-            //could be more efficient by doing 'document.querySelector("#city-name").innerHTML' 
-            //i.e. don't need to make a new variable 'cityName' (this would save 2 lines of code in 1) 
+        //now we want to change the name of the city within the h1 heading (id="city-name") 
+        //can target the name of the city and call it 'cityName'... and do the rest for the other elements 
+        let cityElement = document.querySelector("#city-name"); 
+        let temperatureElement = document.querySelector("#temp-today");        
+        let descriptionElement = document.querySelector("#description"); 
+        //weather API has built-in icons: https://openweathermap.org/weather-conditions 
+        //URL: http://openweathermap.org/img/wn/10d@2x.png 
+        let emojiElement = document.querySelector("#emoji"); 
+        
+        //and now we can replace the inner HTML of each of them 
+        cityElement.innerHTML = response.data.name; 
+        temperatureElement.innerHTML = Math.round(response.data.main.temp);
+        descriptionElement.innerHTML = response.data.weather[0].main; 
+        emojiElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+        emojiElement.setAttribute("alt", response.data.weather[0].main); 
+        //could be more efficient by doing 'document.querySelector("#city-name").innerHTML' etc 
+            //i.e. don't need to make a new variable 'cityName' (this would save 2 lines of code per 1 element) 
             //but keeping it as is just to make it clear for me 
-            //instead of 'response.data.name' could also just used the 'cityInput' variable set below, but this cleans it up  
-
-        //change temp: 
-        let tempToday = document.querySelector("#temp-today");
-        tempToday.innerHTML = Math.round(response.data.main.temp);
-
-        //change description: 
-        let description = document.querySelector("#description"); 
-        description.innerHTML = response.data.weather[0].main; 
+            //also, instead of 'response.data.name', could just used the 'cityInput' variable set below 
+                //but this cleans it up as it gets the city name straight from the API
 
         dateToday = formatDate(response.data.dt * 1000)
     }
