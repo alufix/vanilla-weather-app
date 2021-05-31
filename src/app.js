@@ -80,11 +80,13 @@
         //URL: http://openweathermap.org/img/wn/10d@2x.png 
         let emojiElement = document.querySelector("#emoji"); 
         
+        celsiusTemperature = response.data.main.temp; 
+
         //and now we can replace the inner HTML of each of them 
         cityElement.innerHTML = response.data.name; 
-        temperatureElement.innerHTML = Math.round(response.data.main.temp);
+        temperatureElement.innerHTML = Math.round(celsiusTemperature);
         descriptionElement.innerHTML = response.data.weather[0].main; 
-        emojiElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+        emojiElement.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
         emojiElement.setAttribute("alt", response.data.weather[0].main); 
         //could be more efficient by doing 'document.querySelector("#city-name").innerHTML' etc 
             //i.e. don't need to make a new variable 'cityName' (this would save 2 lines of code per 1 element) 
@@ -129,9 +131,56 @@
             //now make function called 'getCurrentPosition' - do this above 
     }
 
-    let form = document.querySelector("#city-search-form"); //remember this is the ID of the form 
-    form.addEventListener("submit", handleSubmit); 
 
+//------------- Temperature conversion -------------- 
+
+// (2) temperature conversion function (receives an event, so (event))
+function displayFahrenheitTemperature(event) {
+    event.preventDefault(); 
+        //prevents default behaviour which is to open a new page 
+    //now we need to replace the inner HTML of the celsius temp on the page 
+    let temperatureElement = document.querySelector("#temp-today"); 
+    
+    //remove the active class from the C link, add to F link: 
+    celsiusLink.classList.remove("active");
+    fahrenheitLink.classList.add("active"); 
+    
+    //and new variable which is the result of the formula (C to F):  
+    let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;  
+    temperatureElement.innerHTML = Math.round(fahrenheitTemperature); 
+}
+
+// (5) celsius conversion function 
+function displayCelsiusTemperature(event) {
+    event.preventDefault(); 
+    let temperatureElement = document.querySelector("#temp-today"); 
+    
+    //add the active class to the C link, remove from F link: 
+    celsiusLink.classList.add("active"); 
+    fahrenheitLink.classList.remove("active");  
+
+    temperatureElement.innerHTML = Math.round(celsiusTemperature); 
+}
+
+// (3) need global variables rather than just ones within functions 
+let celsiusTemperature = null; 
+    //set to nothing by default 
+    //then go into 'showTemperature' function 
+
+let form = document.querySelector("#city-search-form"); //remember this is the ID of the form 
+form.addEventListener("submit", handleSubmit); 
+
+
+// (1) start by doing this 
+let fahrenheitLink = document.querySelector("#fahrenheit-link"); 
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature); 
+
+// (4) do the same for celsius 
+let celsiusLink = document.querySelector("#celsius-link"); 
+celsiusLink.addEventListener("click", displayCelsiusTemperature); 
+
+
+//---------------- end temperature conversion ------------------ 
 
     //to get 'current location' button to work: 
     let currentLocationButton = document.querySelector("#current-location-button"); 

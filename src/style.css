@@ -53,6 +53,10 @@ li {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 #today-time {
   margin: 25px 20px 0px 40px;
   font-size: 16px;
@@ -72,12 +76,25 @@ li {
 
 #emoji {
   font-size: 30px;
-  text-align: center;
 }
 
 #temp-today,
 #degrees {
   font-size: 28px;
+}
+
+#degrees-units {
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.weather-temperature .active {
+  color: black;
+  cursor: default;
+}
+
+.weather-temperature .active:hover {
+  text-decoration: none;
 }
 
 .future-days {
