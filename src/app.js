@@ -25,45 +25,55 @@
         //let minutes = ('0' + now.getMinutes()).slice(-2);
 
     let todayTime = document.querySelector("#today-time");
-    todayTime.innerHTML = `Today (${day} ${hours}:${minutes})`;
+    todayTime.innerHTML = `Last updated: ${hours}:${minutes}`;
 
     }
 
 
+    function formatDt(timestamp) {
+        let date = new Date(timestamp * 1000);
+        let day = date.getDay();
+        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; 
+
+        return days[day];
+    }
+
 //so just need HTML and CSS for one row of weather forecast ('day 2') and rest is repeated by JS 
 
     function displayForecast(response) {
-        console.log(response.data.daily);
+        let forecast = response.data.daily;
 
         let forecastElement = document.querySelector("#forecast"); 
         
         let forecastHTML = ``; 
 
-        let days = ["Tuesday", "Wednesday", "Thursday", "Friday"]; 
-
-        days.forEach(function (day) {
+        forecast.forEach(function (forecastDay, index) {
+            if (index < 5) {
             forecastHTML = forecastHTML + 
             `<p>           
                 <div class="row">
                     <div class="col-6">
                         <li class="forecast-date">
-                            ${day} 23rd March:
+                            ${formatDt(forecastDay.dt)}:
                         </li>
                     </div>
                     <div class="col-1">
-                    <li class="forecast-emoji">
-                            <i class="fas fa-cloud"></i>
-                        </li>
+                        <img 
+                            src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" 
+                            alt="sunny" 
+                            id="emoji" 
+                            width="45px"
+                        >
                     </div>
                     <div class="col-2"> 
                         <li class="forecast-temp">
-                            24°
+                            ${Math.round(forecastDay.temp.max)}°
                         </li>
                     </div>
                 </div>
             </p>
             `;
-
+            }
         });
  
         forecastElement.innerHTML = forecastHTML; 

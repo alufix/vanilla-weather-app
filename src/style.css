@@ -4,13 +4,13 @@ h2 {
 
 .weather-app {
   text-align: center;
-  /*background-image: url("../assets/raining.jpg");*/
+  background-image: url("../assets/thunderstorm.png");
   margin: 0 auto;
   padding: 20px;
   width: 450px;
-  height: 550px;
+  height: 555px;
   border: solid; /*0.5rem;*/
-  /*color: white;*/
+  color: white;
 }
 
 #search-bar {
@@ -35,7 +35,7 @@ h2 {
   /*font-family: "Josefin Sans", sans-serif; */ /*this font puts it at the top of the box rather than the middle*/
   font-size: 30px;
   line-height: 30px;
-  margin: 0 0 2px 0; /* for some reaon there's more bottom padding than top, but if you remove bottom padding it's too high*/
+  margin: 2px 0 5px 0; /* for some reaon there's more bottom padding than top, but if you remove bottom padding it's too high*/
 }
 /*note: for the city, the width is specified in the HTML div element */
 /*make the search bar above match by changing width*/
