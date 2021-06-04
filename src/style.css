@@ -4,12 +4,13 @@ h2 {
 
 .weather-app {
   text-align: center;
-  background: #fff;
+  /*background-image: url("../assets/raining.jpg");*/
   margin: 0 auto;
   padding: 20px;
   width: 450px;
   height: 550px;
-  border: solid;
+  border: solid; /*0.5rem;*/
+  /*color: white;*/
 }
 
 #search-bar {

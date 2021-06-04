@@ -32,7 +32,9 @@
 
 //so just need HTML and CSS for one row of weather forecast ('day 2') and rest is repeated by JS 
 
-    function displayForecast() {
+    function displayForecast(response) {
+        console.log(response.data.daily);
+
         let forecastElement = document.querySelector("#forecast"); 
         
         let forecastHTML = ``; 
@@ -68,6 +70,17 @@
         
     }
 
+    function getForecast(coordinates) {
+        console.log(coordinates); 
+            //we know we're receiving 'response.data.coord' from where this function is called below 
+            // (within 'displayTemperature' function)
+            //so we call it 'coordinates' to help us understand what is being received 
+
+        let apiKey = "df0e4203de8f0cf1987569b54e21756c"; 
+        let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`
+        axios.get(apiUrl).then(displayForecast); 
+            //calls the function which is defined above 
+    }
 
     function displayTemperature(response) {
 
@@ -76,6 +89,7 @@
         console.log(response.data.name); //this gives us the name of the city 
         console.log(response.data.main.temp); //this gives us the temperature 
         console.log(response.data.weather[0].main); //this gives us the description of the weather (e.g. sunny, clouds) 
+        console.log(response.data.coord); //this gives the coordinates of the city 
 
         //now we want to change the name of the city within the h1 heading (id="city-name") 
         //can target the name of the city and call it 'cityName'... and do the rest for the other elements 
@@ -101,6 +115,11 @@
                 //but this cleans it up as it gets the city name straight from the API
 
         dateToday = formatDate(response.data.dt * 1000)
+
+        getForecast(response.data.coord); 
+            //this sends the function 'getForecast' with the coordinates of the city 
+            //see above for when this function is defined (defined above; called here)
+
     }
 
 
@@ -110,6 +129,7 @@
 
         axios.get(apiUrl).then(displayTemperature); 
     }
+
 
     function handleSubmit(event) {
         event.preventDefault(); 
@@ -126,7 +146,7 @@
     function searchLocation(position) {
         let apiKey = "df0e4203de8f0cf1987569b54e21756c"; 
         let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${apiKey}`;  
-    
+            //this function is called from within the 'getCurrentLocation' function - i.e. when press button 
         axios.get(apiUrl).then(displayTemperature); 
     } 
 
@@ -200,4 +220,3 @@ celsiusLink.addEventListener("click", displayCelsiusTemperature);
         //but when we have the below line, it runs the 'search' function before anything else, which pre-fills the app 
     searchCity("Tokyo"); 
 
-    displayForecast();
