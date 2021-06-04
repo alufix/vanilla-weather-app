@@ -1,38 +1,4 @@
 
-//---------------------- Week 6 - 'Display forecast' function ---------------- 
-
-//so just need HTML and CSS for one row of weather forecast ('day 2') and rest is repeated by JS 
-//note: we need to call this function for it to work; doesn't matter where it goes so just put it at bottom of page 
-
-//    function displayForecast() {
-//        let forecastElement = document.querySelector("#forecast"); 
-//        forecastElement.innerHTML = `
-//        <div class="row">
-//                <div class="col-6">
-//                    <li class="forecast-date" id="day2-date">
-//                        Tuesday 23rd March:
-//                    </li>
-//                </div>
-//                <div class="col-1">
-//                   <li class="forecast-emoji" id="day2-emoji">
-//                        <i class="fas fa-cloud"></i>
-//                    </li>
-//                </div>
-//                <div class="col-2"> 
-//                    <li class="forecast-temp" id="day2-temp">
-//                        24°
-//                    </li>
-//                </div>
-//            </div>
-//            `; 
-//    }
-
-
-//Feature #2
-//Add a search engine, when searching for a city (i.e. Paris), display the city name 
-// on the page after the user submits the form.
-
-
     function formatDate(timestamp) {
     
         let now = new Date(timestamp); 
@@ -63,7 +29,47 @@
 
     }
 
-    function showTemperature(response) {
+
+//so just need HTML and CSS for one row of weather forecast ('day 2') and rest is repeated by JS 
+
+    function displayForecast() {
+        let forecastElement = document.querySelector("#forecast"); 
+        
+        let forecastHTML = ``; 
+
+        let days = ["Tuesday", "Wednesday", "Thursday", "Friday"]; 
+
+        days.forEach(function (day) {
+            forecastHTML = forecastHTML + 
+            `<p>           
+                <div class="row">
+                    <div class="col-6">
+                        <li class="forecast-date">
+                            ${day} 23rd March:
+                        </li>
+                    </div>
+                    <div class="col-1">
+                    <li class="forecast-emoji">
+                            <i class="fas fa-cloud"></i>
+                        </li>
+                    </div>
+                    <div class="col-2"> 
+                        <li class="forecast-temp">
+                            24°
+                        </li>
+                    </div>
+                </div>
+            </p>
+            `;
+
+        });
+ 
+        forecastElement.innerHTML = forecastHTML; 
+        
+    }
+
+
+    function displayTemperature(response) {
 
         //just so we can see what we're working with: 
         console.log(response); 
@@ -77,9 +83,9 @@
         let temperatureElement = document.querySelector("#temp-today");        
         let descriptionElement = document.querySelector("#description"); 
         //weather API has built-in icons: https://openweathermap.org/weather-conditions 
-        //URL: http://openweathermap.org/img/wn/10d@2x.png 
+        //URL: https://openweathermap.org/img/wn/10d@2x.png 
         let emojiElement = document.querySelector("#emoji"); 
-        
+
         celsiusTemperature = response.data.main.temp; 
 
         //and now we can replace the inner HTML of each of them 
@@ -102,7 +108,7 @@
         let apiKey = "df0e4203de8f0cf1987569b54e21756c"; 
         let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`; 
 
-        axios.get(apiUrl).then(showTemperature); 
+        axios.get(apiUrl).then(displayTemperature); 
     }
 
     function handleSubmit(event) {
@@ -121,7 +127,7 @@
         let apiKey = "df0e4203de8f0cf1987569b54e21756c"; 
         let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${apiKey}`;  
     
-        axios.get(apiUrl).then(showTemperature); 
+        axios.get(apiUrl).then(displayTemperature); 
     } 
 
     function getCurrentLocation(event) {
@@ -165,7 +171,7 @@ function displayCelsiusTemperature(event) {
 // (3) need global variables rather than just ones within functions 
 let celsiusTemperature = null; 
     //set to nothing by default 
-    //then go into 'showTemperature' function 
+    //then go into 'displayTemperature' function 
 
 let form = document.querySelector("#city-search-form"); //remember this is the ID of the form 
 form.addEventListener("submit", handleSubmit); 
@@ -190,15 +196,8 @@ celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
     //on loading the page, let's prefill the page with real-time data from a particular city (so it's not fake data saying 'TOKYO' or blank)
         //set up new function 'search(city)' (done above the handleSubmit function) 
-        //so now, usually, 'handleSubmit' runs first, then that calls 'search', then that calls 'showTemperature' 
+        //so now, usually, 'handleSubmit' runs first, then that calls 'search', then that calls 'displayTemperature' 
         //but when we have the below line, it runs the 'search' function before anything else, which pre-fills the app 
     searchCity("Tokyo"); 
 
-//(see function at top)    displayForecast(); 
-
-// Bonus point: 
-// Add a Current Location button. When clicking on it, it uses the Geolocation API to get 
-    // your GPS coordinates and display and the city and current temperature using the OpenWeather API.
-
-
-//URL of sandbox: https://codesandbox.io/s/musing-sutherland-z5qdp?file=/src/index.js
+    displayForecast();
