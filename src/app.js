@@ -84,7 +84,7 @@
 
 
     function getForecast(coordinates) {
-        console.log(coordinates); 
+        //console.log(coordinates); 
             //we know we're receiving 'response.data.coord' from where this function is called below 
             // (within 'displayTemperature' function)
             //so we call it 'coordinates' to help us understand what is being received 
@@ -98,11 +98,11 @@
     function displayTemperature(response) {
 
         //just so we can see what we're working with: 
-        console.log(response); 
-        console.log(response.data.name); //this gives us the name of the city 
-        console.log(response.data.main.temp); //this gives us the temperature 
-        console.log(response.data.weather[0].main); //this gives us the description of the weather (e.g. sunny, clouds) 
-        console.log(response.data.coord); //this gives the coordinates of the city 
+        //console.log(response); 
+        //console.log(response.data.name); //this gives us the name of the city 
+        //console.log(response.data.main.temp); //this gives us the temperature 
+        //console.log(response.data.weather[0].main); //this gives us the description of the weather (e.g. sunny, clouds) 
+        //console.log(response.data.coord); //this gives the coordinates of the city 
 
         //now we want to change the name of the city within the h1 heading (id="city-name") 
         //can target the name of the city and call it 'cityName'... and do the rest for the other elements 
