@@ -8,22 +8,30 @@ h2 {
   margin: 0 auto;
   padding: 20px;
   width: 450px;
-  height: 555px;
+  height: 570px;
   border: solid; /*0.5rem;*/
   color: white;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 #search-bar {
   width: 200px;
   margin: 10px 0 20px 30px;
+  opacity: 70%;
 }
 
 #submit-button {
   margin: 10px 0 20px 0;
+  height: 30px;
+  font-size: 14px;
+  line-height: 14px;
 }
 
 #current-location-button {
   width: 80px;
+  height: 30px;
+  font-size: 14px;
+  line-height: 14px;
   position: relative;
   top: 10px;
   right: 35px;
@@ -41,9 +49,8 @@ h2 {
 /*make the search bar above match by changing width*/
 
 .body {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Rubik", sans-serif;
 }
-/* could use rows and columns/inline elements to make sure all on same row even when resize window */
 
 ul {
   padding: 0;
@@ -59,24 +66,24 @@ a {
 }
 
 #today-time {
-  margin: 25px 20px 0px 40px;
-  font-size: 16px;
+  margin: 20px 20px 0px 40px;
+  font-size: 14px;
   text-align: left;
 }
 
 .today {
-  padding: 20px;
+  padding: 15px 20px 15px 20px;
 }
 
 #description {
-  /* resize column sizes if need to */
   text-transform: lowercase;
   font-size: 28px;
   text-align: right;
 }
 
-#emoji {
-  font-size: 30px;
+.weather-temperature {
+  position: relative;
+  left: -5px;
 }
 
 #temp-today,
@@ -90,7 +97,7 @@ a {
 }
 
 .weather-temperature .active {
-  color: black;
+  color: white;
   cursor: default;
 }
 
@@ -99,10 +106,10 @@ a {
 }
 
 .future-days {
-  padding: 10px;
+  padding: 5px;
   position: relative;
   top: -10px;
-  left: 27px;
+  left: 5px;
 }
 
 .forecast-date {
@@ -110,19 +117,28 @@ a {
 }
 
 .forecast-emoji {
-  text-align: center;
+  position: relative;
+  top: -5px;
+  left: -3px;
 }
 
 .forecast-temp {
-  text-align: right;
+  text-align: center;
+}
+
+.temp-low {
+  opacity: 0.6;
 }
 
 #credit {
+  color: black;
   font-family: monospace;
   font-size: 14px;
   opacity: 0.8;
   margin: 0 auto;
   padding: 0;
+  position: relative;
+  top: 15px;
 }
 
 #github:hover {

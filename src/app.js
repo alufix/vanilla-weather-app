@@ -3,7 +3,7 @@
     
         let now = new Date(timestamp); 
     
-        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         let day = days[now.getDay()];
 
         let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -25,7 +25,7 @@
         //let minutes = ('0' + now.getMinutes()).slice(-2);
 
     let todayTime = document.querySelector("#today-time");
-    todayTime.innerHTML = `Last updated: ${hours}:${minutes}`;
+    todayTime.innerHTML = `Last updated - ${day} ${hours}:${minutes}`;
 
     }
 
@@ -52,22 +52,23 @@
             forecastHTML = forecastHTML + 
             `<p>           
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-5">
                         <li class="forecast-date">
-                            ${formatDt(forecastDay.dt)}:
+                            ${formatDt(forecastDay.dt)}: 
                         </li>
                     </div>
                     <div class="col-1">
                         <img 
                             src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" 
-                            alt="sunny" 
-                            id="emoji" 
+                            alt="..." 
+                            class="forecast-emoji" 
                             width="45px"
                         >
                     </div>
-                    <div class="col-2"> 
+                    <div class="col-4"> 
                         <li class="forecast-temp">
-                            ${Math.round(forecastDay.temp.max)}°
+                            ${Math.round(forecastDay.temp.max)}° 
+                            <span class="temp-low">(${Math.round(forecastDay.temp.min)}°)</span>
                         </li>
                     </div>
                 </div>
@@ -78,7 +79,9 @@
  
         forecastElement.innerHTML = forecastHTML; 
         
+
     }
+
 
     function getForecast(coordinates) {
         console.log(coordinates); 
@@ -124,12 +127,49 @@
             //also, instead of 'response.data.name', could just used the 'cityInput' variable set below 
                 //but this cleans it up as it gets the city name straight from the API
 
+
+        //-------------------- conditional background --------------------
+
+        //to change background according to weather description: 
+        let imageDescription = response.data.weather[0].main; 
+        if (imageDescription == "Clear" || 
+            imageDescription == "Clouds" || 
+            imageDescription == "Thunderstorm" || 
+            imageDescription == "Drizzle" || 
+            imageDescription == "Rain" || 
+            imageDescription == "Snow") {
+            
+            document.getElementById('app-bg').style.backgroundImage=`url(assets/${imageDescription}.png)`; 
+            } 
+        
+        let iconWeather = response.data.weather[0].icon; 
+
+        //if clear night 
+        if (iconWeather == "01n") {
+            document.getElementById('app-bg').style.backgroundImage=`url(assets/clear-night.png)`; 
+        }
+
+        //if night and other weather than clear 
+        if (iconWeather == "02n" ||
+            iconWeather == "03n" ||
+            iconWeather == "04n" ||
+            iconWeather == "09n" ||
+            iconWeather == "10n" ||
+            iconWeather == "11n" ||
+            iconWeather == "13n" ||
+            iconWeather == "50n") {
+            document.getElementById('app-bg').style.backgroundImage=`url(assets/cloudy-night2.png)`; 
+        }
+
+        //-------------------- end conditional background --------------------
+
         dateToday = formatDate(response.data.dt * 1000)
 
         getForecast(response.data.coord); 
             //this sends the function 'getForecast' with the coordinates of the city 
             //see above for when this function is defined (defined above; called here)
 
+            
     }
 
 
@@ -168,7 +208,7 @@
     }
 
 
-//------------- Temperature conversion -------------- 
+//-------------------- temperature conversion --------------------- 
 
 // (2) temperature conversion function (receives an event, so (event))
 function displayFahrenheitTemperature(event) {
@@ -215,8 +255,8 @@ fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 let celsiusLink = document.querySelector("#celsius-link"); 
 celsiusLink.addEventListener("click", displayCelsiusTemperature); 
 
+//----------------------- end temperature conversion ------------------------- 
 
-//---------------- end temperature conversion ------------------ 
 
     //to get 'current location' button to work: 
     let currentLocationButton = document.querySelector("#current-location-button"); 
